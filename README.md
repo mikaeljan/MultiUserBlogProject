@@ -25,7 +25,7 @@ For any questions please feel free to contact me:<br />
 mikael.janek@gmail.com
 
 Notes to improve:
-Add more CSS styling.
-Implement modularization
-Encapsulating the helper methods into a separate class
+Add more CSS styling.<br />
+Implement modularization<br />
+Encapsulating the helper methods into a separate class<br />
 Add a constructor for login verification
