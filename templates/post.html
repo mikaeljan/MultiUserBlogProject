@@ -1,3 +1,4 @@
+
 <div class="post">
   <div class="post-heading">
     <div class="post-title">
@@ -13,4 +14,10 @@
   <div class="post-content">
     {{post._render_content | safe}}
   </div>
+    <form action="/blog/edit_post/{{post.key().id()}}" class="edit_button">
+        <input type="submit" value="Edit post">
+    </form>
+    <form action="/blog/deleted/{{post.key().id()}}" method="get" class="delete_button">
+        <input type="submit" value="Remove post">
+    </form>
 </div>

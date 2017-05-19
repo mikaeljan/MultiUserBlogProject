@@ -1,75 +1,62 @@
 {% extends "blog_base.html" %}
 
 {% block content %}
-    <div align="center">
-        {{ message }}
-    </div>
-      {% for post in blog_posts %}
-        {{ post.render() | safe }}
-        <div class="post_footer">
-        <br><br>
-        <!-- Condition which will check if there is a user logged in and if it author of the post -->
-        {% if user.name %}
-            {% if post.author.name == user.name %}
-                <form action="/blog/edit/{{post.key().id()}}" class="edit_button">
-                    <input type="submit" value="Edit post">
+  <div align="center">
+      {{ message }}
+  </div>
+    {% for post in blog_posts %}
+      {{ post.render() | safe }}
+      <div class="post_footer">
+      <br><br>
+      {% if post.likes == 1 %}
+          {{ post.likes }} person likes this post
+      {% else %}
+          {{ post.likes }} people like this post
+      {% endif %}
+      <br><br>
+          <form action="/blog/add_comment/{{post.key().id()}}" method="get">
+              <input type="submit" value="Add comment">
+          </form>
+          {% if post.author.name != user.name %}
+            {% if user.name not in post.voters %}
+                <form action="/blog/upvote/{{post.key().id()}}" method="post">
+                    <input type="submit" value="LIKE">
                 </form>
-                <form action="/deleted/{{post.key().id()}}" method="get" class="delete_button">
-                    <input type="submit" value="Remove post">
+                <form action="/blog/downvote/{{post.key().id()}}" method="post">
+                    <input type="submit" value="DISLIKE">
                 </form>
-                <br><br>
             {% endif %}
-        {% endif %}
-        {% if post.likes == 1 %}
-            {{ post.likes }} person likes this post
-        {% else %}
-            {{ post.likes }} people like this post
-        {% endif %}
-        <br><br>
-        {% if user.name %}
-            <form action="/blog/add_comment/{{post.key().id()}}" method="get">
-                <input type="submit" value="Add comment">
-            </form>
-            {% if post.author.name != user.name %}
-                {% if user.name not in post.voters %}
-                    <form action="/blog/upvote/{{post.key().id()}}" method="post">
-                        <input type="submit" value="LIKE">
-                    </form>
-                    <form action="/blog/downvote/{{post.key().id()}}" method="post">
-                        <input type="submit" value="DISLIKE">
-                    </form>
-                {% endif %}
-            {% endif %}
-            <br>
-            <div class="post_comment">
-                {% for com in posts_comments %}
-                    {% if com.comment_id == post.key().id() %}
-                        <div class="comment">
+
+        <br>
+        <div class="post_comment">
+            {% for com in posts_comments %}
+                {% if com.comment_id == post.key().id() %}
+                    <div class="comment">
+                        <br>
+                        <span class="comment_content">
+                            {{ com.comment | safe }}
+                        </span>
+                        <br><br>
+                        <span class="comment_sign">
+                            Added by {{ com.comment_author }} on {{ com.created.strftime("%a %b %d, %Y") }}
+                        </span>
+                        <br><br>
+                        {% if com.comment_author == user.name %}
+                            <form action="/blog/edit_comment/{{com.key().id()}}" method="get">
+                                <input type="submit" value="Edit">
+                            </form>
                             <br>
-                            <span class="comment_content">
-                                {{ com.comment | safe }}
-                            </span>
-                            <br><br>
-                            <span class="comment_sign">
-                                Added by {{ com.comment_author }} on {{ com.created.strftime("%a %b %d, %Y") }}
-                            </span>
-                            <br><br>
-                            {% if com.comment_author == user.name %}
-                                <form action="/blog/edit_comment/{{com.key().id()}}" method="get">
-                                    <input type="submit" value="Edit">
-                                </form>
-                                <br>
-                                <form class="delete_button" action="/blog/remove_comment/{{com.key().id()}}" method="get">
-                                    <input type="submit" value="Delete">
-                                </form>
-                            {% endif %}
-                            <br><br>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        {% endif %}
+                            <form class="delete_button" action="/blog/remove_comment/{{com.key().id()}}" method="get">
+                                <input type="submit" value="Delete">
+                            </form>
+                        {% endif %}
+                        <br><br>
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
-        <br><br>
-    {% endfor %}
+      {% endif %}
+      </div>
+      <br><br>
+  {% endfor %}
 {% endblock %}

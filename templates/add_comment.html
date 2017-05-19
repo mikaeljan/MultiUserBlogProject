@@ -6,13 +6,14 @@
         {{ post.author.name }}
     </div>
     <h3>Add your comment:</h3>
-    To go back <a href="/blog">HERE</a>.
-    <br><br>
     <form method="post">
         <label>
             <textarea name="comment" class="cont" value="{{comment}}"></textarea>
         </label>
         <div class="error">{{error}}</div>
         <input type="submit" value="Add comment">
+    </form>
+    <form action='/blog'>
+        <input type="submit" value="Cancel"/>
     </form>
 {% endblock %}

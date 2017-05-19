@@ -13,9 +13,9 @@
             </label>
             <div class="error">{{error}}</div>
             <input type="submit">
-            <form action="/blog">
-                <input type="submit" value="Return"/>
-            </form>
+        </form>
+        <form action="/blog/{{post.key().id()}}">
+            <input type="submit" value="Cancel"/>
         </form>
     </div>
 {% endblock %}

@@ -3,7 +3,6 @@
 
 {% block content %}
     <h2>Please comment below:</h2>
-    To cancel comment editing, click <a href="/blog">HERE</a>.
     <br><br>
     <form method="post">
         <label>
@@ -12,4 +11,8 @@
         <div class="error">{{error}}</div>
         <input type="submit" value="Add comment">
     </form>
+    <form action='/blog'>
+        <input type="submit" value="Cancel"/>
+    </form>
+
 {% endblock %}
