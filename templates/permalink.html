@@ -1,0 +1,4 @@
+{% extends "blog_base.html" %}
+{% block content %}
+  {{post.render() | safe }}
+{% endblock %}
