@@ -321,7 +321,7 @@ class DeletePost(Handler):
         post = Post.get_by_id(int(post_id), parent=blog_key())
 
         if self.user:
-            if self.user.name == post.author.name:
+            if post and self.user.name == post.author.name:
                 post.delete()
                 message = "Your post has been removed!"
                 self.render("blog_front.html", post=post, message=message)
@@ -411,6 +411,9 @@ class EditComment(Handler):
         com = Comment.get_by_id(int(comment_id),
                                 parent=blog_key())
 
+        if not com:
+            return self.error(404)
+
         commentin = self.request.get("comment")
         comment = commentin.replace('\n', '<br>')
         comment_id = com.comment_id
@@ -433,6 +436,9 @@ class RemoveComment(Handler):
     """class for removing a comment"""
     def get(self, comment_id):
         com = Comment.get_by_id(int(comment_id), parent=blog_key())
+
+        if not com:
+            return self.error(404)
 
         if self.user.name == com.comment_author:
             com.delete()
