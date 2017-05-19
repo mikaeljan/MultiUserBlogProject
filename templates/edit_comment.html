@@ -3,13 +3,13 @@
 
 {% block content %}
     <h2>Please comment below:</h2>
-    To abort editing, click <a href="/blog">HERE</a>.
+    To cancel comment editing, click <a href="/blog">HERE</a>.
     <br><br>
     <form method="post">
         <label>
-            <textarea name="comment" class="cont" value="{{com}}">{{ commented }}</textarea>
+            <textarea name="comment" class="" value="{{com}}">{{ commented }}</textarea>
         </label>
         <div class="error">{{error}}</div>
-        <input type="submit" value="submit comment">
+        <input type="submit" value="Add comment">
     </form>
 {% endblock %}
