@@ -10,7 +10,7 @@ For a preview please visit this link: https://hello-world-165521.appspot.com/
 
 ## Running the blog locally on your computer.
 <ol>
-  <li> Download and install the Google App Engine SDK <a href="https://cloud.google.com/appengine/docs/python/download">HERE</a></li>
+  <li> Download and install the Google App Engine SDK <a href="https://cloud.google.com/appengine/docs/python/download">HERE</a>.</li>
   <li> Clone Third Project from https://github.com/mikaeljan/UdacityThirdProject</li>
   <li> Change the working directory in the Terminal to where the project is downloaded</li>
   <li> Run `dev_appserver.py .`</li>
